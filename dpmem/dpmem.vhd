@@ -14,7 +14,7 @@
 -- Creator : Jamil Khatib
 -- Date 14/5/99
 --
--- version 0.19990710
+-- version 0.19991224
 --
 -- This file was tested on the ModelSim 5.2EE
 -- The test vecors for model sim is included in vectors.do file
@@ -106,6 +106,10 @@ END dpmem_v1;
 
 -------------------------------------------------------------------------------
 
+-- This Architecture was tested on the ModelSim 5.2EE
+-- The test vectors for model sim is included in vectors.do file
+-- It is Synthesized using Xilinx Webfitter
+--
 -- 
 -- The variable result_data is used as an intermediate variable in the process
 -- 
@@ -170,6 +174,10 @@ END dpmem_v2;
 
 
 -------------------------------------------------------------------------------
+-- This Architecture was tested on the ModelSim 5.2EE
+-- The test vectors for model sim is included in vectors.do file
+-- It is Synthesized using Xilinx Webpack
+--
 -- This is the same as dpmem_v1 but without the Z state
 -- instead the output goes to all 1's during reset and 
 -- when RE = 0
