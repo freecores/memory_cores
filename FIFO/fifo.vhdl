@@ -824,6 +824,126 @@ end FIFO_v5;
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+-- Exactly teh same as FIFO_v5 but ieee.numeric_std.all is used
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+--USE ieee.std_logic_signed.ALL;
+--USE ieee.std_logic_arith.ALL;
+
+-------------------------------------------------------------------------------
+-- purpose: FIFO Architecture
+architecture FIFO_v6 of FIFO is
+
+-- constant values
+	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
+	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
+	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+
+    signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
+    signal W_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Write Address
+	signal D_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Diff Address
+
+    signal REN_INT : std_logic;  		-- Internal Read Enable
+    signal WEN_INT : std_logic;  		-- Internal Write Enable
+
+	component dpmem
+	    generic (ADD_WIDTH : integer := 8;
+	   			 WIDTH : integer := 8 );
+
+    	port (clk : in std_logic;
+	    reset : in std_logic;
+	  	w_add : in std_logic_vector(ADD_WIDTH -1 downto 0 );
+	    r_add : in std_logic_vector(ADD_WIDTH -1 downto 0 );
+	    data_in : in std_logic_vector(WIDTH - 1 downto 0);
+	    data_out : out std_logic_vector(WIDTH - 1 downto 0 );
+	    WR  : in std_logic;
+	    RE  : in std_logic);
+	end component;
+
+	
+    
+begin  -- FIFO_v6
+
+-------------------------------------------------------------------------------        
+
+memcore: dpmem 
+generic map (WIDTH => 8,
+				ADD_WIDTH =>8)
+	port map (clk => clk,
+			 reset => reset,
+			 w_add => w_add,
+			 r_add => r_add,
+			 Data_in => data_in,
+			 data_out => data_out,
+			 wr => wen_int,
+			 re => ren_int);
+
+-------------------------------------------------------------------------------
+
+wen_int <= '1' when (WE = '1' and ( FULL = '0')) else '0';
+
+ren_int <= '1' when RE = '1' and ( EMPTY = '0') else '0';
+
+
+-------------------------------------------------------------------------------
+
+Add_gen: process(clk,reset)    
+
+   begin  -- process ADD_gen
+
+       -- activities triggered by asynchronous reset (active low)
+       if reset = '0' then
+	   		W_ADD <= (others =>'0');
+	   		R_ADD <= (others =>'0');
+	   		D_ADD <= (others =>'0');
+       -- activities triggered by rising edge of clock
+       elsif clk'event and clk = '1'  then
+		
+		if WE = '1' and ( FULL = '0') then
+	   		W_ADD <= W_ADD + 1;
+			D_ADD <= D_ADD +1;
+--        else
+--	   		W_ADD <= W_ADD;
+--			D_ADD <= D_ADD;
+
+	    end if;
+
+		if RE = '1' and ( EMPTY = '0') then
+	   		R_ADD <= R_ADD + 1;
+			D_ADD <= D_ADD -1;
+--        else
+--	   		R_ADD <= R_ADD;
+--			D_ADD <= D_ADD;
+	    end if;
+			
+       end if;
+		
+--	    R_ADD  <= q2;
+--		W_ADD  <= q1;
+--		D_ADD  <= q3;
+
+   end process ADD_gen;
+
+-------------------------------------------------------------------------------
+
+	FULL      <=  '1'when (D_ADD(ADD_WIDTH - 1 downto 0) = MAX_ADDR) else '0';
+	EMPTY     <=  '1'when (D_ADD(ADD_WIDTH - 1 downto 0) =  MIN_ADDR) else '0';
+	HALF_FULL <=  '1'when (D_ADD(ADD_WIDTH - 1 downto 0) >  HALF_ADDR) else '0';
+
+
+-------------------------------------------------------------------------------
+
+        
+end FIFO_v6;
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
 configuration fifo_conf of fifo is
 	for fifo_v1
 		for memcore:dpmem
