@@ -149,7 +149,8 @@ architecture FIFO_v1 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+	
  
 	signal Data_in_del : std_logic_vector(WIDTH - 1 downto 0);  -- delayed Data in
 
@@ -312,8 +313,8 @@ architecture FIFO_v2 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := "01111111";--(ADD_WIDTH -1 => '0', others => '1');
-
+constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+	
  
     signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
     signal W_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Write Address
@@ -455,8 +456,9 @@ architecture FIFO_v3 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
- 
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+
+	
 
     signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
     signal W_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Write Address
@@ -582,7 +584,10 @@ architecture FIFO_v4 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+ 
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+      
  
 	signal Data_in_del : std_logic_vector(WIDTH - 1 downto 0);  -- delayed Data in
 
@@ -722,7 +727,8 @@ architecture FIFO_v5 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+        
 
     signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
     signal W_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Write Address
@@ -842,7 +848,7 @@ architecture FIFO_v6 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="01111111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
 
     signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
     signal W_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Write Address
@@ -962,7 +968,8 @@ architecture FIFO_v7 of FIFO is
 -- constant values
 	constant MAX_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '1');
 	constant MIN_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := (others => '0');
-	constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) :="0111";--(ADD_WIDTH -1 downto ADD_WIDTH -1 => '0' ,others => '1');
+        constant HALF_ADDR:std_logic_vector(ADD_WIDTH -1 downto 0) := '0' & (MAX_ADDR'range => '1');
+	
 
 -- Internal signals
     signal R_ADD   : std_logic_vector(ADD_WIDTH - 1 downto 0);  -- Read Address
